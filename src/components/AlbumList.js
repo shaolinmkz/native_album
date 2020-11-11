@@ -18,11 +18,11 @@ const AlbumList = () => {
   useEffect(() => {
     axios
       .get('http://rallycoding.herokuapp.com/api/music_albums')
-      .then(({ data }) => {
+      .then((res) => {
         setState((prevState) => ({
           ...prevState,
           pageLoading: false,
-          albums: data,
+          albums: res.data,
         }));
       });
   }, []);
@@ -37,10 +37,10 @@ const AlbumList = () => {
 
       <FlatList
         data={state.albums}
-        keyExtractor={({ url }) => url}
-        renderItem={({ item }) => (
+        keyExtractor={(data) => data.url}
+        renderItem={(data) => (
           <Card>
-            <Text>{item.title}</Text>
+            <Text>{data.item.title}</Text>
           </Card>
         )}
       />
